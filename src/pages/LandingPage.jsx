@@ -1,0 +1,32 @@
+import React, { useState, useEffect } from "react";
+import appwriteService from "../appwrite/config";
+import { Container } from "../components";
+
+const LandingPage = () => {
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    appwriteService
+      .getPosts([])
+      .then((posts) => {
+        if (posts) {
+          setPosts(posts.documents);
+        }
+      })
+      .catch((error) => console.log("get post error all post", error));
+  }, []);
+  return (
+    <div className="w-full py-8">
+      <Container>
+        <div className="flex flex-wrap">
+          {posts.map((post) => (
+            <div className="p-2 w-1/4" key={post.$id}>
+              <PostCard {...post} />
+            </div>
+          ))}
+        </div>
+      </Container>
+    </div>
+  );
+};
+
+export default LandingPage;
