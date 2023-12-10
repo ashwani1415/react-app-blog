@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Container, PostCard } from "../components";
 import appwriteService from "../appwrite/config";
+import Loading from "../components/Loading";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     appwriteService.getPosts().then((posts) => {
       if (posts) {
+        setIsLoading(false);
         setPosts(posts.documents);
       }
     });
@@ -19,8 +22,11 @@ const Home = () => {
         <Container>
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
+              <div className="flex justify-center	items-center">
+                <Loading />
+              </div>
               <h1 className="text-2xl font-bold hover:text-gray-500">
-                Login to read Posts
+                Loading
               </h1>
             </div>
           </div>
