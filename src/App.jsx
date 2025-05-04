@@ -21,7 +21,7 @@ function App() {
       })
       .finally(() => setLoading(false));
   }, []);
-
+// console.log()
   return !loading ? (
     <div className="min-h-screen flex flex-wrap content-between bg-transparent">
       <div className="w-full block">
